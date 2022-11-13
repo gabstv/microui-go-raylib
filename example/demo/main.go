@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	muraylib "github.com/gabstv/microui-go-raylib"
+	"github.com/gabstv/microui-go/demo"
 	mu "github.com/gabstv/microui-go/microui"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -28,13 +29,14 @@ func main() {
 	for !rl.WindowShouldClose() {
 		muraylib.UpdateInputs(ctx)
 		ctx.Begin()
-		mu.DrawDemoWindow(ctx)
+		demo.DemoWindow(ctx)
+		demo.LogWindow(ctx)
 		ctx.End()
 
 		rl.BeginDrawing()
 
 		// get the color fro mthe demo window (because of the sliders)
-		bgc := mu.DemoWindowBackgroundColor()
+		bgc := demo.BackgroundColor()
 		cc := color.RGBA{
 			R: bgc.R,
 			G: bgc.G,

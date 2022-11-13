@@ -109,6 +109,8 @@ func atlasSetup() {
 	// DefaultAtlasTexture = rl.LoadTexture("default_atlas.png")
 }
 
+var charbuf = make([]rune, 1024)
+
 func UpdateInputs(ctx *microui.Context) {
 	md := rl.GetMousePosition()
 	ctx.InputMouseMove(int32(md.X), int32(md.Y))
@@ -145,13 +147,48 @@ func UpdateInputs(ctx *microui.Context) {
 		mp := rl.GetMousePosition()
 		ctx.InputMouseUp(int32(mp.X), int32(mp.Y), mbtnsUp)
 	}
+	nchars := 0
+	lastc := rl.GetCharPressed()
+	for lastc != 0 {
+		charbuf[nchars] = lastc
+		nchars++
+		lastc = rl.GetCharPressed()
+	}
+	if nchars > 0 {
+		ctx.InputText(string(charbuf[:nchars]))
+	}
 
-	// 	  case SDL_TEXTINPUT: mu_input_text(ctx, e.text.text); break;
-	// 	  case SDL_KEYDOWN:
-	// 	  case SDL_KEYUP: {
-	// 		int c = key_map[e.key.keysym.sym & 0xff];
-	// 		if (c && e.type == SDL_KEYDOWN) { mu_input_keydown(ctx, c); }
-	// 		if (c && e.type ==   SDL_KEYUP) { mu_input_keyup(ctx, c);   }
+	if rl.IsKeyPressed(rl.KeyLeftControl) || rl.IsKeyPressed(rl.KeyRightControl) {
+		ctx.InputKeyDown(microui.KeyCtrl)
+	}
+	if rl.IsKeyPressed(rl.KeyLeftShift) || rl.IsKeyPressed(rl.KeyRightShift) {
+		ctx.InputKeyDown(microui.KeyShift)
+	}
+	if rl.IsKeyPressed(rl.KeyLeftAlt) || rl.IsKeyPressed(rl.KeyRightAlt) {
+		ctx.InputKeyDown(microui.KeyAlt)
+	}
+	if rl.IsKeyPressed(rl.KeyBackspace) {
+		ctx.InputKeyDown(microui.KeyBackspace)
+	}
+	if rl.IsKeyPressed(rl.KeyEnter) {
+		ctx.InputKeyDown(microui.KeyReturn)
+	}
+
+	if rl.IsKeyReleased(rl.KeyLeftControl) || rl.IsKeyReleased(rl.KeyRightControl) {
+		ctx.InputKeyUp(microui.KeyCtrl)
+	}
+	if rl.IsKeyReleased(rl.KeyLeftShift) || rl.IsKeyReleased(rl.KeyRightShift) {
+		ctx.InputKeyUp(microui.KeyShift)
+	}
+	if rl.IsKeyReleased(rl.KeyLeftAlt) || rl.IsKeyReleased(rl.KeyRightAlt) {
+		ctx.InputKeyUp(microui.KeyAlt)
+	}
+	if rl.IsKeyReleased(rl.KeyBackspace) {
+		ctx.InputKeyUp(microui.KeyBackspace)
+	}
+	if rl.IsKeyReleased(rl.KeyEnter) {
+		ctx.InputKeyUp(microui.KeyReturn)
+	}
 }
 
 func init() {
