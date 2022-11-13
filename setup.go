@@ -20,6 +20,7 @@ var DefaultScrollMultiplier = rl.NewVector2(1, -30)
 
 var (
 	iconClose     = microui.NewRect(0, 0, 16, 16)
+	iconResize    = microui.NewRect(24, 24, 6, 6)
 	iconCheck     = microui.NewRect(16, 0, 16, 16)
 	iconCollapsed = microui.NewRect(32, 0, 16, 16)
 	iconExpanded  = microui.NewRect(48, 0, 16, 16)
@@ -28,6 +29,7 @@ var (
 	DefaultAtlasRects = []microui.Rect{
 		{},
 		iconClose,
+		iconResize,
 		iconCheck,
 		iconCollapsed,
 		iconExpanded,

@@ -31,6 +31,7 @@ func main() {
 		ctx.Begin()
 		demo.DemoWindow(ctx)
 		demo.LogWindow(ctx)
+		demo.StyleWindow(ctx)
 		ctx.End()
 
 		rl.BeginDrawing()
