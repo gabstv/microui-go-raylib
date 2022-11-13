@@ -36,7 +36,7 @@ func main() {
 
 		rl.BeginDrawing()
 
-		// get the color fro mthe demo window (because of the sliders)
+		// get the color from the demo window (because of the sliders)
 		bgc := demo.BackgroundColor()
 		cc := color.RGBA{
 			R: bgc.R,
