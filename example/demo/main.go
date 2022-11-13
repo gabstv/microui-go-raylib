@@ -47,7 +47,6 @@ func main() {
 
 		rl.ClearBackground(cc)
 
-		// rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LightGray)
 		ctx.Render()
 
 		rl.EndDrawing()
