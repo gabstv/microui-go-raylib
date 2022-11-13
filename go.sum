@@ -1,10 +1,8 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
-github.com/gabstv/microui-go v0.0.0-20221112163048-4d000832ff5d h1:dAiR2R+5viksNGkrgCTuTUgDJmoz/iYUDUJVB2Dlltw=
-github.com/gabstv/microui-go v0.0.0-20221112163048-4d000832ff5d/go.mod h1:yQk/WiR/tFWkPRnpzw/D8DSyPLj3bTG6r/v78zHwUYs=
-github.com/gabstv/microui-go v0.0.0-20221112163946-4156ebde24b5 h1:ekQn3F7zw4pLfe30W9SUkCdsiXqzXqxZrErdmIyYQ4A=
-github.com/gabstv/microui-go v0.0.0-20221112163946-4156ebde24b5/go.mod h1:yQk/WiR/tFWkPRnpzw/D8DSyPLj3bTG6r/v78zHwUYs=
-github.com/gabstv/microui-go v0.0.0-20221112220741-854f4f28a28c h1:4kVFHsYMDyh0ncgvwn6AwtJHqRnM4JVzoN8dj96Ascw=
-github.com/gabstv/microui-go v0.0.0-20221112220741-854f4f28a28c/go.mod h1:yQk/WiR/tFWkPRnpzw/D8DSyPLj3bTG6r/v78zHwUYs=
+github.com/gabstv/microui-go v0.0.0-20221113190151-0e2746fa4361 h1:llzDJjpyP3aGtOR8vj7KRD49jlZJc4LQGGMmUxyfmEw=
+github.com/gabstv/microui-go v0.0.0-20221113190151-0e2746fa4361/go.mod h1:yQk/WiR/tFWkPRnpzw/D8DSyPLj3bTG6r/v78zHwUYs=
+github.com/gen2brain/raylib-go/raylib v0.0.0-20221111144526-93f4babf1078 h1:9YSli6qlW29/lxqH4IkIrKcQdWWhrw3gKkWQcNTeHYU=
+github.com/gen2brain/raylib-go/raylib v0.0.0-20221111144526-93f4babf1078/go.mod h1:+NbsqGlEQqGqrsgJFF5Yj2dkvn0ML2SQb8RqM2hJsPU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 golang.org/x/exp v0.0.0-20221111204811-129d8d6c17ab h1:1S7USr8/C0Sgk4egxq4zZ07zYt2Xh1IiFp8hUMXH/us=
