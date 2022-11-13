@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image/color"
 	"os"
 	"strconv"
 
@@ -18,20 +19,30 @@ func main() {
 		flags |= rl.FlagWindowResizable
 	}
 	rl.SetConfigFlags(flags)
-	rl.InitWindow(800, 450, "microui-go + raylib-go")
+	rl.InitWindow(800, 500, "microui-go + raylib-go")
 	rl.SetTargetFPS(60)
 
 	ctx := mu.NewContext()
 	muraylib.Setup(ctx)
 
 	for !rl.WindowShouldClose() {
-		rl.BeginDrawing()
 		muraylib.UpdateInputs(ctx)
 		ctx.Begin()
 		mu.DrawDemoWindow(ctx)
 		ctx.End()
 
-		rl.ClearBackground(rl.Black)
+		rl.BeginDrawing()
+
+		// get the color fro mthe demo window (because of the sliders)
+		bgc := mu.DemoWindowBackgroundColor()
+		cc := color.RGBA{
+			R: bgc.R,
+			G: bgc.G,
+			B: bgc.B,
+			A: bgc.A,
+		}
+
+		rl.ClearBackground(cc)
 
 		// rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LightGray)
 		ctx.Render()

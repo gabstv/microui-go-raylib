@@ -16,6 +16,8 @@ var defaultAtlasPNG []byte
 var defaultAtlas *rl.Image
 var DefaultAtlasTexture rl.Texture2D
 
+var DefaultScrollMultiplier = rl.NewVector2(1, -30)
+
 var (
 	iconClose     = microui.NewRect(0, 0, 16, 16)
 	iconCheck     = microui.NewRect(16, 0, 16, 16)
@@ -39,6 +41,12 @@ const defaultFontSize = 10
 func Setup(ctx *microui.Context) {
 	initOnce.Do(atlasSetup)
 	ctx.SetRenderCommand(RenderCommand)
+	ctx.SetBeginRender(func() {
+		rl.BeginScissorMode(0, 0, int32(rl.GetScreenWidth()), int32(rl.GetScreenHeight()))
+	})
+	ctx.SetEndRender(func() {
+		rl.EndScissorMode()
+	})
 }
 
 func RenderCommand(cmd *microui.Command) {
@@ -81,9 +89,8 @@ func renderIcon(cmd microui.IconCommand) {
 
 func renderClip(cmd microui.ClipCommand) {
 	rl.EndScissorMode()
-	// AMENDED TO APPLY SCISSOR MODE CORRECTLY
 	rect := cmd.Rect()
-	rl.BeginScissorMode(rect.X, int32(rl.GetScreenHeight())-(rect.Y+rect.H), rect.W, rect.H)
+	rl.BeginScissorMode(rect.X, rect.Y, rect.W, rect.H)
 }
 
 func renderAtlasTexture(rect microui.Rect, pos microui.Vec2, color microui.Color) {
@@ -103,36 +110,12 @@ func atlasSetup() {
 }
 
 func UpdateInputs(ctx *microui.Context) {
-	// while (SDL_PollEvent(&e)) {
-	// 	switch (e.type) {
-	// 	  case SDL_QUIT: exit(EXIT_SUCCESS); break;
-	// 	  case SDL_MOUSEMOTION: mu_input_mousemove(ctx, e.motion.x, e.motion.y); break;
-	// 	  case SDL_MOUSEWHEEL: mu_input_scroll(ctx, 0, e.wheel.y * -30); break;
-	// 	  case SDL_TEXTINPUT: mu_input_text(ctx, e.text.text); break;
-
-	// 	  case SDL_MOUSEBUTTONDOWN:
-	// 	  case SDL_MOUSEBUTTONUP: {
-	// 		int b = button_map[e.button.button & 0xff];
-	// 		if (b && e.type == SDL_MOUSEBUTTONDOWN) { mu_input_mousedown(ctx, e.button.x, e.button.y, b); }
-	// 		if (b && e.type ==   SDL_MOUSEBUTTONUP) { mu_input_mouseup(ctx, e.button.x, e.button.y, b);   }
-	// 		break;
-	// 	  }
-
-	// 	  case SDL_KEYDOWN:
-	// 	  case SDL_KEYUP: {
-	// 		int c = key_map[e.key.keysym.sym & 0xff];
-	// 		if (c && e.type == SDL_KEYDOWN) { mu_input_keydown(ctx, c); }
-	// 		if (c && e.type ==   SDL_KEYUP) { mu_input_keyup(ctx, c);   }
-	// 		break;
-	// 	  }
-	// 	}
-	//   }
 	md := rl.GetMousePosition()
 	ctx.InputMouseMove(int32(md.X), int32(md.Y))
 
 	mw := rl.GetMouseWheelMoveV()
 	if mw.X != 0 || mw.Y != 0 {
-		ctx.InputScroll(int32(mw.X), int32(mw.Y))
+		ctx.InputScroll(int32(mw.X*DefaultScrollMultiplier.X), int32(mw.Y*DefaultScrollMultiplier.Y))
 	}
 	var mbtns microui.MouseButton
 	if rl.IsMouseButtonPressed(rl.MouseLeftButton) {
@@ -162,6 +145,13 @@ func UpdateInputs(ctx *microui.Context) {
 		mp := rl.GetMousePosition()
 		ctx.InputMouseUp(int32(mp.X), int32(mp.Y), mbtnsUp)
 	}
+
+	// 	  case SDL_TEXTINPUT: mu_input_text(ctx, e.text.text); break;
+	// 	  case SDL_KEYDOWN:
+	// 	  case SDL_KEYUP: {
+	// 		int c = key_map[e.key.keysym.sym & 0xff];
+	// 		if (c && e.type == SDL_KEYDOWN) { mu_input_keydown(ctx, c); }
+	// 		if (c && e.type ==   SDL_KEYUP) { mu_input_keyup(ctx, c);   }
 }
 
 func init() {
